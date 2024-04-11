@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration status="info">
+
+    <Appenders>
+        <!-- 콘솔 -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %5p [%c] %m%n"/>
+        </Console>
+<!--        <RollingFile name="Producer_log" filename="/root/logs/producer.log" filePattern="/root/logs/producer.log_%d{yyMMdd}">-->
+<!--            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %5p [%c] %m%n"/>-->
+<!--            <Policies>-->
+<!--                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>-->
+<!--            </Policies>-->
+<!--            <DefaultRolloverStrategy>-->
+<!--                <Delete basePath="/logs/kafka-producer" maxDepth="1">-->
+<!--                    <IfAccumulatedFileCount exceeds="5"/>-->
+<!--                </Delete>-->
+<!--            </DefaultRolloverStrategy>-->
+<!--        </RollingFile>-->
+    </Appenders>
+
+    <loggers>
+        <root level="info" additivity="true">
+            <AppenderRef ref="console"/>
+<!--            <AppenderRef ref="Producer_log"/>-->
+        </root>
+
+    </loggers>
+
+</configuration>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
+<head>
+    <title>JSH Main</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../script/main.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <h1>TEST</h1>
+    <p>TEST CASE LIST</p>
+</div>
+
+<div class="row">
+    <div class="column" id="sleep">
+        <h2>Sleep TEST</h2>
+        <p>
+            [시나리오] <br>
+            1. Start Button을 클릭하면, Thread Sleep이 시작된다. <br>
+            2. Thread는 지정 시간 동안 계속 Running 상태를 유지한다. <br>
+            3. 해당 시나리오를 통해 WEB, WAS 환경에서 TimeOut CASE를 TEST할 수 있다. <br>
+            4. Default Value는 60초이며, application.properties에 service_time 값을 수정하여 시간을 변경할 수 있다.<br>
+            <button class="custom-btn btn-6" onclick="location.href='/sleep_stop'" ><span>Stop</span></button>
+            <button class="custom-btn btn-6" onclick="location.href='/sleep_start'"><span>Start</span></button>
+        </p>
+    </div>
+    <div class="column" id="oom">
+        <h2>OOM TEST</h2>
+        <p>
+            [시나리오] <br>
+            1. Heap Size는 작게 설정한다 ex) -Xms200m -Xmx200m <br>
+            2. Start 버튼 클릭 시, Stack에 INTEGER MAX 까지 값을 PUSH <br>
+            3. Log에서 OutOfMemoryError 확인
+            <button class="custom-btn btn-6" onclick="location.href='/oom_start'"><span>Start</span></button>
+        </p>
+    </div>
+    <div class="column" id="session">
+        <h2>session TEST</h2>
+        <p>
+            [Session Info] <br>
+            <table>
+                <tr>
+                    <th>종류</th>
+                    <th>값</th>
+                </tr>
+                <tr>
+                    <td>SESSION ID</td>
+                    <td th:text="${session_id}"></td>
+                </tr>
+                <tr>
+                    <td>CREATE TIME</td>
+                    <td th:text="${session_create}"></td>
+                </tr>
+                <tr>
+                    <td>LAST ACCESS TIME</td>
+                    <td th:text="${session_last}"></td>
+                </tr>
+                <tr>
+                    <td>TIMEOUT</td>
+                    <td th:text="${maxInactiveInterval}"></td>
+                </tr>
+            </table>
+        </p>
+    </div>
+    <div class="column" id="class">
+        <h2>ClassLoader TEST</h2>
+        <p>
+            [Class Information] <br>
+            <b>- ClassPath</b><br>
+            <b>INPUT : <font color=red>Package/ResourceName</font> or <font color=red>Package</font></b><br>
+            <b>EXAMPLE : <font color=blue>javax/servlet/http/HttpServlet</font>, <font color=blue>javax/servlet/LocalStrings.properties</font> or <font color=blue>javax/servlet/</font></b><br><br>
+            <b>- AbsolutePath</b><br>
+            <b>INPUT : <font color=red>AbsolutePath/FileName</font> or <font color=red>AbsolutePath</font></b><br>
+            <b>EXAMPLE : <font color=blue>D:/webapps/WEB-INF/web.xml</font> or <font color=blue>/home/webapps/WEB-INF/</font></b><br>
+            <form name='theform' method='GET' action='/class_find'>
+                <table id="class_search">
+                    <tr height=30>
+                        <td style="width:170px">&nbsp;</td>
+                        <td colspan=2>
+                            <input type='radio' id="findCP" name="findcp" value="true" style="margin:-4px 0 -2px 5px;" onFocus="this.blur();" checked> ClassPath</input>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type='radio' id="findAP" name="findcp" value="false" style="margin:-4px 0 -2px 5px;" onFocus="this.blur();" onClick="clearNames();"> AbsolutePath</input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:170px" ><b>Resource Name : </b></td>
+                        <td><input type='hidden' name='action' value="view"><input type='text' id='resource' style="width:100%;" name='resource' class='input' onKeyDown="no_specialkey(event);" onKeyUp="checkselectkey(event);" onBlur="clearNames();"></td>
+                        <td style="float:left;"><button class="custom-btn btn-6" onclick="viewResourceInfo();"><span>Search</span></button></td>
+                    </tr>
+                </table>
+            </form>
+        </p>
+
+        <table id="class_result">
+            <tr>
+                <th>종류</th>
+                <th>값</th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td th:text="${name}"></td>
+            </tr>
+            <tr>
+                <td>Location</td>
+                <td th:text="${location}"></td>
+            </tr>
+            <tr>
+                <td>ClassLoader</td>
+                <td th:text="${classloader}"></td>
+            </tr>
+            <tr>
+                <td>SuperClass</td>
+                <td th:text="${superclass}"></td>
+            </tr>
+            <tr>
+                <td>Interface</td>
+                <td th:text="${interface}"></td>
+            </tr>
+            <tr>
+                <td>Primitive</td>
+                <td th:text="${primitive}"></td>
+            </tr>
+        </table>
+        <button class="custom-btn btn-6" id="class_view"><span>view</span></button>
+        <button class="custom-btn btn-6" id="class_hide"><span>hide</span></button>
+    </div>
+</div>
+
+
+</body>
+</html>
