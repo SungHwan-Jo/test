@@ -1,8 +1,10 @@
 package com.jsh.test.contoller;
 
 import com.jsh.test.service.ClassFindService;
+import com.jsh.test.service.DBService;
 import com.jsh.test.service.OOMService;
 import com.jsh.test.service.ThreadSleepService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +19,25 @@ public class MainController {
     private final ThreadSleepService threadSleepService;
     private final OOMService oomService;
     private final ClassFindService classFindService;
+    private final DBService dbService;
 
-    public MainController(ThreadSleepService threadSleepService, OOMService oomService, ClassFindService classFindService) {
+
+    public MainController(ThreadSleepService threadSleepService, OOMService oomService, ClassFindService classFindService, DBService dbService) {
         this.threadSleepService = threadSleepService;
         this.oomService = oomService;
         this.classFindService = classFindService;
+        this.dbService = dbService;
+    }
+    @GetMapping("/")
+    public String root(Model model, HttpServletRequest request){
+
+        return "redirect:/main";
+    }
+    @GetMapping("/con_check")
+    public String con_check(Model model){
+        String result = dbService.dbconCheck();
+        model.addAttribute("result", result);
+        return "main";
     }
 
     @GetMapping("/main")
@@ -56,6 +72,11 @@ public class MainController {
     @GetMapping("/oom_start")
     public String oom_start(Model model){
         oomService.oom_start();
+        return "redirect:/main";
+    }
+    @GetMapping("/gc_start")
+    public String oom_forever(Model model){
+        oomService.gc_start();
         return "redirect:/main";
     }
 

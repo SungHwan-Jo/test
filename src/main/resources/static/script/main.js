@@ -1,9 +1,16 @@
-
 $(document).ready(function(){
   $("#sleep p").hide();
   $("#oom p").hide();
   $("#session p").hide();
   $("#session table").hide();
+  $("#dbconnection p").hide();
+
+  $("#dbconnection").click(function(){
+      $("#dbconnection p").toggle(
+        function(){$("#dbconnection p").addClass('hide')},
+        function(){$("#dbconnection p").addClass('show')}
+      )
+  });
 
   $("#sleep").click(function(){
     $("#sleep p").toggle(

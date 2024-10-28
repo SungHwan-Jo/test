@@ -17,10 +17,20 @@
 
 <div class="header">
     <h1>TEST</h1>
+    <h2>Version 1</h2>
     <p>TEST CASE LIST</p>
 </div>
 
 <div class="row">
+    <div class="column" id="dbconnection">
+        <h2>DB Connection TEST</h2>
+        <p>
+            [시나리오] <br>
+            1. HttpUrlConnection을 사용하여 wildfly DB Connection 상태 Check API 호출 <br>
+            <button class="custom-btn btn-6" onclick="location.href='/con_check'" ><span>Check</span></button>
+        </p>
+        <span id="result" th:text="${result}"></span>
+    </div>
     <div class="column" id="sleep">
         <h2>Sleep TEST</h2>
         <p>
@@ -39,8 +49,10 @@
             [시나리오] <br>
             1. Heap Size는 작게 설정한다 ex) -Xms200m -Xmx200m <br>
             2. Start 버튼 클릭 시, Stack에 INTEGER MAX 까지 값을 PUSH <br>
-            3. Log에서 OutOfMemoryError 확인
+            3. Log에서 OutOfMemoryError 확인 <br>
+            * GC Button 입력 시 무한 System GC 호출
             <button class="custom-btn btn-6" onclick="location.href='/oom_start'"><span>Start</span></button>
+            <button class="custom-btn btn-6" onclick="location.href='/gc_start'"><span>GC</span></button>
         </p>
     </div>
     <div class="column" id="session">
