@@ -53,6 +53,14 @@ public class MainController {
         model.addAttribute("session_last", new Date(session_last));
         model.addAttribute("maxInactiveInterval", maxInactiveInterval);
 
+        String jkd_version = System.getProperty("java.version");
+        String user_dir = System.getProperty("user.dir");
+        String os_name = System.getProperty("os.name");
+
+        model.addAttribute("jdk_version", jkd_version);
+        model.addAttribute("user_dir", user_dir);
+        model.addAttribute("os_name", os_name);
+
 
         return "main";
     }

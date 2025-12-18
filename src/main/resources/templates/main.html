@@ -16,8 +16,11 @@
 <body>
 
 <div class="header">
-    <h1>TEST</h1>
+    <h1>TEST Application</h1>
     <h2>Version 1</h2>
+    Java Version : <span th:text="${jdk_version}"></span> <br>
+    Application Directory : <span th:text="${user_dir}"></span> <br>
+    OS Type : <span th:text="${os_name}"></span> <br>
     <p>TEST CASE LIST</p>
 </div>
 
@@ -26,7 +29,7 @@
         <h2>DB Connection TEST</h2>
         <p>
             [시나리오] <br>
-            1. HttpUrlConnection을 사용하여 wildfly DB Connection 상태 Check API 호출 <br>
+            1. HttpUrlConnection을 사용하여 Externel Service Connection 상태 Check API 호출 <br>
             <button class="custom-btn btn-6" onclick="location.href='/con_check'" ><span>Check</span></button>
         </p>
         <span id="result" th:text="${result}"></span>
